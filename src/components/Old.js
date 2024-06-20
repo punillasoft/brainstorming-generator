@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Modal from './Modal';
 import './BrainstormingGenerator.css';
+import Modal from './Modal';
 
 const BrainstormingGenerator = () => {
   const [ideas, setIdeas] = useState([]);
   const [currentIdeas, setCurrentIdeas] = useState([]);
   const [intervalId, setIntervalId] = useState(null);
-  const [intervalTime, setIntervalTime] = useState(800); // Default 0.8 seconds
+  const [intervalTime, setIntervalTime] = useState(2000); // Default 2 seconds
+  const [showModal, setShowModal] = useState(false);
   const [capturedIdeas, setCapturedIdeas] = useState([]);
-  const [showModal, setShowModal] = useState(false); // Estado inicial en false
-  const [speed, setSpeed] = useState(5); // Default speed of 5 seconds
 
   useEffect(() => {
     fetch('/ideas.json')
@@ -23,13 +22,16 @@ const BrainstormingGenerator = () => {
         captureIdeas();
       }
     };
-
     window.addEventListener('keydown', handleSpaceBar);
-
     return () => {
       window.removeEventListener('keydown', handleSpaceBar);
     };
   }, [currentIdeas]);
+
+  useEffect(() => {
+    const storedCapturedIdeas = JSON.parse(localStorage.getItem('capturedIdeas')) || [];
+    setCapturedIdeas(storedCapturedIdeas);
+  }, []);
 
   const shuffleIdeas = () => {
     if (ideas.length > 0) {
@@ -43,7 +45,7 @@ const BrainstormingGenerator = () => {
 
   const startShuffle = () => {
     shuffleIdeas();
-    const id = setInterval(shuffleIdeas, speed * 1000);
+    const id = setInterval(shuffleIdeas, intervalTime);
     setIntervalId(id);
   };
 
@@ -63,9 +65,9 @@ const BrainstormingGenerator = () => {
   };
 
   const captureIdeas = () => {
-    const captured = [...capturedIdeas, ...currentIdeas];
-    setCapturedIdeas(captured);
-    localStorage.setItem('capturedIdeas', JSON.stringify(captured));
+    let newCapturedIdeas = [...capturedIdeas, currentIdeas];
+    setCapturedIdeas(newCapturedIdeas);
+    localStorage.setItem('capturedIdeas', JSON.stringify(newCapturedIdeas));
   };
 
   const openModal = () => {
@@ -95,10 +97,10 @@ const BrainstormingGenerator = () => {
           <input 
             id="speedRange"
             type="range"
-            min="0.1"
-            max="5"
-            step="0.1"
-            defaultValue="0.8"
+            min="0.5"
+            max="10"
+            step="0.5"
+            defaultValue="2"
             onChange={handleRangeChange}
           />
         </div>
@@ -106,9 +108,7 @@ const BrainstormingGenerator = () => {
       <button onClick={openModal} style={{position: 'fixed', top: 20, right: 20, padding: '10px', fontSize: '1em', cursor: 'pointer', color: 'white', backgroundColor: 'black', border: '1px solid white', borderRadius: '5px'}}>
         Ver Ideas Capturadas
       </button>
-      {showModal && (
-        <Modal setShowModal={setShowModal} capturedIdeas={capturedIdeas} />
-      )}
+      <Modal showModal={showModal} setShowModal={setShowModal} capturedIdeas={capturedIdeas} />
     </div>
   );
 };

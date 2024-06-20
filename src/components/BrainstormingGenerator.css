@@ -30,13 +30,15 @@
   
   .controls {
     position: fixed;
-    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px white;
+    backdrop-filter: blur(15px);
   }
   
   button {
@@ -58,19 +60,19 @@
   
   button.play {
     background-color: green;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border-radius: 50%;
   }
   
   button.stop {
     background-color: red;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-radius: 50%;
   }
   
   button.capture {
     background-color: blue;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border-radius: 50%;
     position: relative;
   }
@@ -116,4 +118,145 @@
     color: white;
     font-size: 1em;
   }
+
+  /* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
   
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+  }
+  
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+  }
+  
+  .modal-body .captured-idea {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+
+/* modo experimental */
+
+@keyframes move {
+    0% { transform: translate(0, 0); opacity: 1; }
+    25% { transform: translate(100px, 50px); opacity: 0.5; }
+    50% { transform: translate(-100px, 100px); opacity: 1; }
+    75% { transform: translate(50px, -50px); opacity: 0.5; }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+  
+  
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    height: 80vh; /* Adjust height as needed */
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    margin-top: 10px;
+    overflow: auto; /* Allow scrolling */
+  }
+  
+  .captured-idea {
+    margin-bottom: 5px;
+  }
+  
+  .floating-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+  }
+
+.boton-experimental-mode {
+    color:black;
+}
+
+
+.floating-item {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    animation: move 5s infinite ease-in-out, blink 1s infinite;
+  }
+  
+  @keyframes move {
+    0% { transform: translate(0, 0); opacity: 1; }
+    25% { transform: translate(20px, -20px); opacity: 0.5; }
+    50% { transform: translate(0, -40px); opacity: 1; }
+    75% { transform: translate(-20px, -20px); opacity: 0.5; }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
