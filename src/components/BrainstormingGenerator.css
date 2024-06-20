@@ -1,0 +1,119 @@
+.brainstorming-generator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .grid-item {
+    flex: 1 0 33.3333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    color: white;
+    box-sizing: border-box;
+    font-size: 1.5em;
+    text-align: center;
+  }
+  
+  .controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  button.play {
+    background-color: green;
+    padding: 15px 20px;
+    border-radius: 50%;
+  }
+  
+  button.stop {
+    background-color: red;
+    padding: 15px 20px;
+    border-radius: 50%;
+  }
+  
+  button.capture {
+    background-color: blue;
+    padding: 15px 20px;
+    border-radius: 50%;
+    position: relative;
+  }
+  
+  .tooltip {
+    visibility: hidden;
+    width: 160px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the button */
+    left: 50%;
+    margin-left: -80px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Arrow at the bottom */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+  
+  button.capture:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .range-input {
+    margin-left: 20px;
+  }
+  
+  .range-label {
+    color: white;
+    font-size: 1em;
+  }
+  
